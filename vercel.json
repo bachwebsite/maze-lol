@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/notes.js": {
-      "runtime": "@vercel/node"
+      "vercel-build": "node ./build.js"
     }
   }
 }
