@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/notes.js": {
-      "vercel-build": "node ./build.js"
-    }
-  }
-}
