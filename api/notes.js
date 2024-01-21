@@ -1,3 +1,5 @@
+// api/notes.js
+
 const Note = require('./notesDB');
 
 export default async function handler(req, res) {
