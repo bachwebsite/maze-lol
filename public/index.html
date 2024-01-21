@@ -1,3 +1,5 @@
+<!-- public/index.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,54 +30,53 @@
 </head>
 <body>
     <div id="note-container"></div>
+
     <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const noteContainer = document.getElementById('note-container');
+        document.addEventListener('DOMContentLoaded', function () {
+            const noteContainer = document.getElementById('note-container');
 
-    // Function to fetch existing notes from the server
-    async function fetchNotes() {
-      const response = await fetch('/api/notes');
-      const notes = await response.json();
+            async function fetchNotes() {
+                const response = await fetch('/api/notes');
+                const notes = await response.json();
 
-      notes.forEach(note => {
-        createStickyNote(note);
-      });
-    }
+                notes.forEach(note => {
+                    createStickyNote(note);
+                });
+            }
 
-    fetchNotes();
+            fetchNotes();
 
-    document.addEventListener('click', async function (event) {
-      if (event.target === noteContainer) {
-        const note = prompt('Enter your note:');
-        if (note) {
-          const position = { x: event.clientX, y: event.clientY };
-          const response = await fetch('/api/notes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content: note, position })
-          });
+            document.addEventListener('click', async function (event) {
+                if (event.target === noteContainer) {
+                    const note = prompt('Enter your note:');
+                    if (note) {
+                        const position = { x: event.clientX, y: event.clientY };
+                        const response = await fetch('/api/notes', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ content: note, position })
+                        });
 
-          if (response.ok) {
-            const newNote = await response.json();
-            createStickyNote(newNote);
-          } else {
-            alert('Failed to add note. Please try again.');
-          }
-        }
-      }
-    });
+                        if (response.ok) {
+                            const newNote = await response.json();
+                            createStickyNote(newNote);
+                        } else {
+                            alert('Failed to add note. Please try again.');
+                        }
+                    }
+                }
+            });
 
-    function createStickyNote(note) {
-      const stickyNote = document.createElement('div');
-      stickyNote.classList.add('sticky-note');
-      stickyNote.textContent = note.content;
-      stickyNote.style.left = note.position.x + 'px';
-      stickyNote.style.top = note.position.y + 'px';
+            function createStickyNote(note) {
+                const stickyNote = document.createElement('div');
+                stickyNote.classList.add('sticky-note');
+                stickyNote.textContent = note.content;
+                stickyNote.style.left = note.position.x + 'px';
+                stickyNote.style.top = note.position.y + 'px';
 
-      noteContainer.appendChild(stickyNote);
-    }
-  });
-</script>
-  </body>
+                noteContainer.appendChild(stickyNote);
+            }
+        });
+    </script>
+</body>
 </html>
-  
