@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/notes.js": {
-      "runtime": "vercel-node@2"
+      "runtime": "nodejs16.x"
     }
   }
 }
